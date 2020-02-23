@@ -17,6 +17,18 @@ spring:
         max-idle: 100
         min-idle: 10
         max-wait: 10000ms
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: admin
+    virtual-host: /
+    listener:
+      simple:
+        #定义消费者最多同事处理
+        prefetch: 10
+        #消息收容确认
+        acknowledge-mode: manual
   jackson:
     date-format: yyyy-MM-dd
     time-zone: GMT+8

@@ -5,8 +5,12 @@ import com.along.seckill.entity.PromotionSecKill;
 import com.along.seckill.exception.SecKillException;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 
 @Service
@@ -15,6 +19,8 @@ public class PromotionSecKillService {
     private PromotionSecKillDAO promotionSecKillDAO;
     @Resource
     private RedisTemplate redisTemplate;
+    @Resource
+    private RabbitTemplate rabbitTemplate;
 
     public void processSecKill(Long psId, String userid, Integer num) throws SecKillException {
         PromotionSecKill ps = promotionSecKillDAO.findById(psId);
@@ -41,6 +47,22 @@ public class PromotionSecKillService {
         } else {
             throw new SecKillException("抱歉，该商品已被抢光，下次再来吧！！");
         }
+    }
+
+    /**
+     * 消息生产处，在GoodController的doOrder调用
+     * @param userId
+     * @return
+     */
+    public String sendOrderToQueue(String userId) {
+        System.out.println("准备向mq发送信息");
+        Map data = new HashMap();
+        data.put("userid", userId);
+        String orderNo = UUID.randomUUID().toString();
+        data.put("orderNo", orderNo);
+        //附加额外的订单信息
+        rabbitTemplate.convertAndSend("exchange-order", null, data);
+        return orderNo;
     }
 
 }

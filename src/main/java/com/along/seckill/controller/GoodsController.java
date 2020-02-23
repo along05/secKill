@@ -64,6 +64,7 @@ public class GoodsController {
     @ResponseBody
     public Map doOrder(Long psId, String userId) throws SecKillException {
         promotionSecKillService.processSecKill(psId, userId,1);
+        String orderNo = promotionSecKillService.sendOrderToQueue(userId);
         Map returnMessage = new HashMap();
         returnMessage.put("code", 200 );
         returnMessage.put("message",  "购买成功~" );
