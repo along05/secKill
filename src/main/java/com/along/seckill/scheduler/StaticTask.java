@@ -16,7 +16,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+/**
+ * 定时执行页面静态化的定时器
+ */
 @Component
 public class StaticTask {
 
