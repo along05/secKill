@@ -3,6 +3,7 @@ package com.along.seckill.service;
 import com.along.seckill.dao.*;
 import com.along.seckill.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -24,19 +25,22 @@ public class GoodsService {
     @Resource
     private OrderDAO orderDAO ;
 
-
+    @Cacheable(value = "goods" , key = "#goodsId")
     public Goods getGoods(Long goodsId) {
         return goodsDAO.findById(goodsId);
     }
 
+    @Cacheable(value = "convers" , key = "#goodsId")
     public List<GoodsCover> findCovers(Long goodsId) {
         return goodsCoverDAO.findByGoodsId(goodsId);
     }
 
+    @Cacheable(value = "details" , key = "#goodsId")
     public List<GoodsDetail> findDetails(Long goodsId) {
         return goodsDetailDAO.findByGoodsId(goodsId);
     }
 
+    @Cacheable(value = "params" , key = "#goodsId")
     public List<GoodsParam> findParams(Long goodsId) {
         return goodsParamDAO.findByGoodsId(goodsId);
     }
