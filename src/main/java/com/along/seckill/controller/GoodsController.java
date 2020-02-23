@@ -28,8 +28,8 @@ public class GoodsController {
 
 
     //拼装页面需要的数据，并展示页面
-    @GetMapping("/good/{gid}")
-    public ModelAndView showGoods(@PathVariable("gid") Long gid) {
+    @GetMapping("/good")
+    public ModelAndView showGoods(Long gid) {
         logger.info("gid:" + gid);
         ModelAndView mav = new ModelAndView("/goods");
         Goods goods = goodsService.getGoods(gid);

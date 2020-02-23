@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>${goods.title}</title>
-    <link href="http://localhost:8080/layui/css/layui.css" rel="stylesheet">
-    <script src="http://localhost:8080/layui/layui.all.js"></script>
+    <link href="./layui/css/layui.css" rel="stylesheet">
+    <script src="./layui/layui.all.js"></script>
     <style>
         .bb-info li {
             margin-top: 20px;
