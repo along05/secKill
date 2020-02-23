@@ -23,24 +23,24 @@ public class GoodsService {
     @Resource
     private EvaluteDAO evaluteDAO;
     @Resource
-    private OrderDAO orderDAO ;
+    private OrderDAO orderDAO;
 
-    @Cacheable(value = "goods" , key = "#goodsId")
+    @Cacheable(value = "goods", key = "#goodsId")
     public Goods getGoods(Long goodsId) {
         return goodsDAO.findById(goodsId);
     }
 
-    @Cacheable(value = "convers" , key = "#goodsId")
+    @Cacheable(value = "convers", key = "#goodsId")
     public List<GoodsCover> findCovers(Long goodsId) {
         return goodsCoverDAO.findByGoodsId(goodsId);
     }
 
-    @Cacheable(value = "details" , key = "#goodsId")
+    @Cacheable(value = "details", key = "#goodsId")
     public List<GoodsDetail> findDetails(Long goodsId) {
         return goodsDetailDAO.findByGoodsId(goodsId);
     }
 
-    @Cacheable(value = "params" , key = "#goodsId")
+    @Cacheable(value = "params", key = "#goodsId")
     public List<GoodsParam> findParams(Long goodsId) {
         return goodsParamDAO.findByGoodsId(goodsId);
     }
@@ -49,12 +49,12 @@ public class GoodsService {
         return evaluteDAO.findEvalutesByGid(gid);
     }
 
-    public boolean insertInOrder(String userId,String goodId){
+    public boolean insertInOrder(String userId, String goodId) {
 
-        Order haveOrder = orderDAO.findByOrderNo(goodId) ;
-        if (haveOrder!=null){
+        Order haveOrder = orderDAO.findByOrderNo(goodId);
+        if (haveOrder != null) {
             return false;
-        }else{
+        } else {
             Order order = new Order();
             order.setOrderNo(goodId);
             order.setOrderStatus(0);
@@ -67,25 +67,17 @@ public class GoodsService {
             order.setPostage(0f);
             order.setCreateTime(new Date());
             orderDAO.insert(order);
-            return true ;
+            return true;
         }
     }
 
 
+    public List<Goods> findLastFiveMinute() {
+        return goodsDAO.findLastFiveMinute();
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    public List<Goods> findAllGoods(){
+        return goodsDAO.findAllGoods() ;
+    }
 
 }

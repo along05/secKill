@@ -9,12 +9,15 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 //添加扫包目录，否则会报找不到mapper的错
 @MapperScan("com.along.seckill")
-//允许开启缓存
+//开启缓存
 @EnableCaching
+//开启定时器
+@EnableScheduling
 public class SeckillApplication {
 
     public static void main(String[] args) {
