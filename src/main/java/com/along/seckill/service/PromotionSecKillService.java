@@ -64,5 +64,4 @@ public class PromotionSecKillService {
         rabbitTemplate.convertAndSend("exchange-order", null, data);
         return orderNo;
     }
-
 }
