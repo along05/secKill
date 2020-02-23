@@ -10,6 +10,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 @SpringBootApplication
 //添加扫包目录，否则会报找不到mapper的错
@@ -18,6 +19,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableCaching
 //开启定时器
 @EnableScheduling
+//开启用redis管理session的模式
+@EnableRedisHttpSession
 public class SeckillApplication {
 
     public static void main(String[] args) {
