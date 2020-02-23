@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.along.seckill.dao.GoodsDAO">
+    <select id="findById" parameterType="long" resultType="com.along.seckill.entity.Goods">
+        select * from t_goods where goods_id = #{value}
+    </select>
+
+    <select id="findAllGoods" parameterType="long" resultType="com.along.seckill.entity.Goods">
+        select * from t_goods
+    </select>
+
+    <select id="findLastFiveMinute" parameterType="long" resultType="com.along.seckill.entity.Goods">
+        select * from t_goods where update_date between now() and (now() - 5) ;
+    </select>
+
+</mapper>
