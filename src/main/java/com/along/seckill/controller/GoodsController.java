@@ -3,7 +3,9 @@ package com.along.seckill.controller;
 
 import com.along.seckill.entity.Evaluate;
 import com.along.seckill.entity.Goods;
+import com.along.seckill.exception.SecKillException;
 import com.along.seckill.service.GoodsService;
+import com.along.seckill.service.PromotionSecKillService;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -33,7 +35,8 @@ public class GoodsController {
     private Configuration freeMarkerConfig ;
     @Resource
     private GoodsService goodsService;
-
+    @Resource
+    private PromotionSecKillService promotionSecKillService;
 
     //拼装页面需要的数据，并展示页面
     @GetMapping("/good")
@@ -55,16 +58,15 @@ public class GoodsController {
         List<Evaluate> evaluates = goodsService.findEvalutesByGid(gid);
         return evaluates;
     }
-
-
-    //点击购买生成订单
+    
+    //点击购买生成订单,这里psId前端界面写死了，即就是1，
     @GetMapping("/doOrder")
     @ResponseBody
-    public Map doOrder(String userId, String goodId) {
-        boolean succces = goodsService.insertInOrder(userId, goodId);
+    public Map doOrder(Long psId, String userId) throws SecKillException {
+        promotionSecKillService.processSecKill(psId, userId,1);
         Map returnMessage = new HashMap();
-        returnMessage.put("code", succces == true ? 200 : 500);
-        returnMessage.put("message", succces == true ? "购买成功~" : "该用户已经抢购过该商品，不能重复购买~");
+        returnMessage.put("code", 200 );
+        returnMessage.put("message",  "购买成功~" );
         returnMessage.put("date", null);
         return returnMessage;
     }

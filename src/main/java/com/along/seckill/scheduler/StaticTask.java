@@ -18,8 +18,9 @@ import java.util.Map;
 
 /**
  * 定时执行页面静态化的定时器
+ * 在这里不采用之前生成html的解决方案，所以把这里展示屏蔽了
  */
-@Component
+//@Component
 public class StaticTask {
 
     @Resource
@@ -29,7 +30,7 @@ public class StaticTask {
     private GoodsService goodsService;
 
     //每秒执行一次
-    @Scheduled(cron = "0 0/5 * * * ?")
+    //@Scheduled(cron = "0 0/5 * * * ?")
     public void doStatic() throws TemplateException, IOException {
         //获取模板对象
         Template template = freeMarkerConfig.getTemplate("goods.ftl") ;

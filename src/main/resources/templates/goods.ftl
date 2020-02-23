@@ -139,7 +139,7 @@
 
     var $ = layui.$ ;
     $("#buyNow").click(function(){
-        $.getJSON("/doOrder?userId=${goods.goodsId?string('0')}&goodId=${goods.goodsId?string('0')}" ,function (json) {
+        $.getJSON("/doOrder?psId=1&goodId=${goods.goodsId?string('0')}" ,function (json) {
             alert(json.message) ;
         })
     });
